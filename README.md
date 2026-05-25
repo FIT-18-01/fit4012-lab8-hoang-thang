@@ -182,13 +182,13 @@ sender.py ──────── TCP port 6000 ──────► receiver.
 
 ### Bước 1 - Mỗi máy tạo khóa của mình
 
-M�y Receiver:
+M�y Receiver:
 ```bash
 python keygen.py
 # → keys/receiver_private.pem  keys/receiver_public.pem
 ```
 
-M�y Sender:
+M�y Sender:
 ```bash
 python keygen_sender.py
 # → keys/sender_private.pem  keys/sender_public.pem
@@ -262,7 +262,7 @@ OUTPUT_FILE=sample_output.txt \
 python receiver.py
 
 # Sender
-SERVER_IP=192.168.x.B \
+SERVER_IP=192.168.61.177 \
 DATA_PORT=6000 \
 RECEIVER_PUBLIC_KEY=keys/receiver_public.pem \
 SENDER_PRIVATE_KEY=keys/sender_private.pem \

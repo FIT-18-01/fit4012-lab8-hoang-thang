@@ -4,13 +4,13 @@ from pathlib import Path
 
 from secure_transfer_utils import load_private_key, load_public_key, open_receiver_payload, recv_secure_packet
 
-HOST = os.getenv("RECEIVER_HOST", "192.168.61.177")
+HOST = os.getenv("RECEIVER_HOST", "0.0.0.0")
 DATA_PORT = int(os.getenv("DATA_PORT", os.getenv("PORT", "6000")))
 RECEIVER_PRIVATE_KEY = os.getenv("RECEIVER_PRIVATE_KEY", "keys/receiver_private.pem")
 SENDER_PUBLIC_KEY = os.getenv("SENDER_PUBLIC_KEY", "keys/sender_public.pem")
 TIMEOUT = float(os.getenv("SOCKET_TIMEOUT", "10"))
 OUTPUT_FILE = os.getenv("OUTPUT_FILE", "")
-LOG_FILE = os.getenv("RECEIVER_LOG_FILE", "")
+LOG_FILE = os.getenv("RECEIVER_LOG_FILE", "logs/receiver_success.log")
 
 
 def receive_packet() -> bytes:
