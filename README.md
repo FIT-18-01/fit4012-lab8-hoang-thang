@@ -15,20 +15,20 @@ Lab 8 kế thừa cách tổ chức repo của Lab 6 socket starter, nhưng thay
 
 ## Team members
 
-- **Thành viên 1**: TODO_MEMBER_1 - MSSV: TODO_MEMBER_1_ID
+- **Thành viên 1**: Nguyễn Việt Hoàng - MSSV: 1871020253
 - **Thành viên 2**: TODO_MEMBER_2 - MSSV: TODO_MEMBER_2_ID
 
 ## Task division
 
-- **Thành viên 1 phụ trách chính**: TODO_ROLE_MEMBER_1
-- **Thành viên 2 phụ trách chính**: TODO_ROLE_MEMBER_2
-- **Phần làm chung**: TODO_SHARED_WORK
+- **Thành viên 1 phụ trách chính**: sender, mã hóa DES-CBC, mã hóa DES key bằng RSA-OAEP, viết test cho sender và phần packet/crypto.
+- **Thành viên 2 phụ trách chính**: receiver, giải mã DES, kiểm tra SHA-256, xử lý packet và viết test cho receiver.
+- **Phần làm chung**: viết README, report, threat model, chạy demo/local test, kiểm tra CI và fix bug chung.
 
 ## Demo roles
 
-- **Demo Sender / mã hóa / log gửi**: TODO_DEMO_ROLE_1
-- **Demo Receiver / giải mã / kiểm tra hash**: TODO_DEMO_ROLE_2
-- **Cả hai cùng trả lời câu hỏi mở rộng AES và chữ ký số**: TODO_DEMO_ROLE_SHARED
+- **Demo Sender / mã hóa / log gửi**: Nguyễn Việt Hoàng
+- **Demo Receiver / giải mã / kiểm tra hash**: Mạc Đức Thắng
+- **Cả hai cùng trả lời câu hỏi mở rộng AES và chữ ký số**: Nguyễn Việt Hoàng & Mạc Đức Thắng
 
 ---
 
@@ -132,7 +132,7 @@ Trong demo học tập local, hai file có thể nằm cùng repo. Trong hệ th
 ### Terminal 1 - Receiver
 
 ```bash
-RECEIVER_HOST=127.0.0.1 \
+RECEIVER_HOST=192.168.61.177 \
 DATA_PORT=6000 \
 RECEIVER_PRIVATE_KEY=keys/receiver_private.pem \
 python receiver.py
@@ -141,7 +141,7 @@ python receiver.py
 ### Terminal 2 - Sender
 
 ```bash
-SERVER_IP=127.0.0.1 \
+SERVER_IP=192.168.61.177 \
 DATA_PORT=6000 \
 RECEIVER_PUBLIC_KEY=keys/receiver_public.pem \
 MESSAGE="Xin chao FIT4012 - Lab 8 Secure Transfer" \
@@ -155,7 +155,7 @@ python sender.py
 Terminal 1:
 
 ```bash
-RECEIVER_HOST=127.0.0.1 \
+RECEIVER_HOST=192.168.61.177 \
 DATA_PORT=6000 \
 RECEIVER_PRIVATE_KEY=keys/receiver_private.pem \
 RECEIVER_LOG_FILE=logs/receiver_success.log \
@@ -166,7 +166,7 @@ python receiver.py
 Terminal 2:
 
 ```bash
-SERVER_IP=127.0.0.1 \
+SERVER_IP=192.168.61.177 \
 DATA_PORT=6000 \
 RECEIVER_PUBLIC_KEY=keys/receiver_public.pem \
 MESSAGE="Xin chao FIT4012 - Lab 8 Secure Transfer" \
@@ -181,13 +181,13 @@ python sender.py
 Terminal 1:
 
 ```bash
-RECEIVER_HOST=127.0.0.1 DATA_PORT=6000 OUTPUT_FILE=sample_output.txt python receiver.py
+RECEIVER_HOST=192.168.61.177 DATA_PORT=6000 OUTPUT_FILE=sample_output.txt python receiver.py
 ```
 
 Terminal 2:
 
 ```bash
-SERVER_IP=127.0.0.1 DATA_PORT=6000 INPUT_FILE=sample_input.txt python sender.py
+SERVER_IP=192.168.61.177 DATA_PORT=6000 INPUT_FILE=sample_input.txt python sender.py
 ```
 
 ---

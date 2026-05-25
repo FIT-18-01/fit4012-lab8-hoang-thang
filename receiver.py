@@ -16,7 +16,7 @@ def receive_packet() -> bytes:
     """Listen for one sender connection and receive one Lab 8 secure packet."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server.settimeout(TIMEOUT)
+        server.settimeout(None)
         server.bind((HOST, DATA_PORT))
         server.listen(1)
         conn, addr = server.accept()
