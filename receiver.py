@@ -2,11 +2,12 @@ import os
 import socket
 from pathlib import Path
 
-from secure_transfer_utils import load_private_key, open_receiver_payload, recv_secure_packet
+from secure_transfer_utils import load_private_key, load_public_key, open_receiver_payload, recv_secure_packet
 
-HOST = os.getenv("RECEIVER_HOST", "0.0.0.0")
+HOST = os.getenv("RECEIVER_HOST", "192.168.61.177")
 DATA_PORT = int(os.getenv("DATA_PORT", os.getenv("PORT", "6000")))
 RECEIVER_PRIVATE_KEY = os.getenv("RECEIVER_PRIVATE_KEY", "keys/receiver_private.pem")
+SENDER_PUBLIC_KEY = os.getenv("SENDER_PUBLIC_KEY", "keys/sender_public.pem")
 TIMEOUT = float(os.getenv("SOCKET_TIMEOUT", "10"))
 OUTPUT_FILE = os.getenv("OUTPUT_FILE", "")
 LOG_FILE = os.getenv("RECEIVER_LOG_FILE", "")
@@ -33,14 +34,26 @@ def main() -> None:
 
     packet = receive_packet()
     receiver_private_key = load_private_key(RECEIVER_PRIVATE_KEY)
-    plaintext, integrity_ok = open_receiver_payload(packet, receiver_private_key)
+    sender_public_key = load_public_key(SENDER_PUBLIC_KEY)
+
+    plaintext, integrity_ok, signature_ok = open_receiver_payload(
+        packet, receiver_private_key, sender_public_key
+    )
 
     message = plaintext.decode("utf-8", errors="replace")
+
     if integrity_ok:
-        lines.append("[+] Dữ liệu nguyên vẹn: SHA-256 khớp.")
+        lines.append("[+] Tính toàn vẹn: SHA-256 khớp.")
         print(lines[-1])
     else:
-        lines.append("[-] Dữ liệu bị thay đổi hoặc giả mạo: SHA-256 không khớp.")
+        lines.append("[-] Tính toàn vẹn: SHA-256 KHÔNG khớp - dữ liệu bị thay đổi!")
+        print(lines[-1])
+
+    if signature_ok:
+        lines.append("[+] Xác thực Sender: Chữ ký RSA hợp lệ - đúng là Sender đã gửi.")
+        print(lines[-1])
+    else:
+        lines.append("[-] Xác thực Sender: Chữ ký RSA KHÔNG hợp lệ - không thể xác nhận danh tính Sender!")
         print(lines[-1])
 
     lines.extend([
